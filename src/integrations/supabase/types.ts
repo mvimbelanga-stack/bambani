@@ -264,10 +264,6 @@ export type Database = {
         Returns: Database["public"]["Enums"]["role_status"]
       }
       session_is_live: { Args: { _sid: string }; Returns: boolean }
-      write_audit: {
-        Args: { _action: string; _details?: Json; _target: string }
-        Returns: undefined
-      }
     }
     Enums: {
       app_role:
