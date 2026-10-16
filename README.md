@@ -27,3 +27,18 @@ npm run dev
 - TypeScript
 - React
 - Tailwind CSS
+
+## Biometric Clock-In (patrollers & security)
+
+- `/clock-in`: live camera, face box (face-api, `@vladmandic/face-api` fork), blink + nod liveness (score must reach 0.85), high-accuracy GPS (rejected above 50 m), HTTPS required.
+- `/clock-history`: saved events (stored in `localStorage` key `wcu-clockins-v1`).
+- Installable on Android/iOS through `public/manifest.webmanifest` ("Add to Home Screen" / "Install app").
+
+## Deployment
+
+Lovable: click **Publish** (recommended; HTTPS included).
+
+Netlify / Vercel: this is a TanStack Start (SSR) app built with Vite + Nitro.
+1. Set the Nitro preset: `NITRO_PRESET=netlify` or `NITRO_PRESET=vercel` as a build env var.
+2. Build command `bun run build`; add the `VITE_SUPABASE_*` env vars from `.env`.
+3. Both hosts serve HTTPS by default, which the camera and GPS need.
