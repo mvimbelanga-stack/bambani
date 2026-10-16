@@ -10,33 +10,351 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AlertsRouteImport } from './routes/alerts'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ClockHistoryRouteImport } from './routes/clock-history'
+import { Route as ClockInRouteImport } from './routes/clock-in'
+import { Route as HomeRouteImport } from './routes/home'
+import { Route as MapRouteImport } from './routes/map'
+import { Route as MineRouteImport } from './routes/mine'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as ReportRouteImport } from './routes/report'
+import { Route as SecurityRouteImport } from './routes/security'
+import { Route as SoundAlertRouteImport } from './routes/sound-alert'
+import { Route as TrackMeRouteImport } from './routes/track-me'
+import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
+import { Route as AuthenticatedActivityRouteImport } from './routes/_authenticated/activity'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedPrivacyRouteImport } from './routes/_authenticated/privacy'
+import { Route as AuthenticatedSessionsRouteImport } from './routes/_authenticated/sessions'
+import { Route as ToolsCommunityRouteImport } from './routes/tools.community'
+import { Route as ToolsEvidenceRouteImport } from './routes/tools.evidence'
+import { Route as ToolsPatrolRouteImport } from './routes/tools.patrol'
+import { Route as ToolsSafeZonesRouteImport } from './routes/tools.safe-zones'
+import { Route as ToolsSosRouteImport } from './routes/tools.sos'
+import { Route as ToolsStatsRouteImport } from './routes/tools.stats'
+import { Route as AuthenticatedSessionsIdRouteImport } from './routes/_authenticated/sessions.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlertsRoute = AlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClockHistoryRoute = ClockHistoryRouteImport.update({
+  id: '/clock-history',
+  path: '/clock-history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClockInRoute = ClockInRouteImport.update({
+  id: '/clock-in',
+  path: '/clock-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapRoute = MapRouteImport.update({
+  id: '/map',
+  path: '/map',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MineRoute = MineRouteImport.update({
+  id: '/mine',
+  path: '/mine',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportRoute = ReportRouteImport.update({
+  id: '/report',
+  path: '/report',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SecurityRoute = SecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SoundAlertRoute = SoundAlertRouteImport.update({
+  id: '/sound-alert',
+  path: '/sound-alert',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrackMeRoute = TrackMeRouteImport.update({
+  id: '/track-me',
+  path: '/track-me',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAccountRoute = AuthenticatedAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedActivityRoute = AuthenticatedActivityRouteImport.update({
+  id: '/activity',
+  path: '/activity',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPrivacyRoute = AuthenticatedPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSessionsRoute = AuthenticatedSessionsRouteImport.update({
+  id: '/sessions',
+  path: '/sessions',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const ToolsCommunityRoute = ToolsCommunityRouteImport.update({
+  id: '/tools/community',
+  path: '/tools/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsEvidenceRoute = ToolsEvidenceRouteImport.update({
+  id: '/tools/evidence',
+  path: '/tools/evidence',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsPatrolRoute = ToolsPatrolRouteImport.update({
+  id: '/tools/patrol',
+  path: '/tools/patrol',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsSafeZonesRoute = ToolsSafeZonesRouteImport.update({
+  id: '/tools/safe-zones',
+  path: '/tools/safe-zones',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsSosRoute = ToolsSosRouteImport.update({
+  id: '/tools/sos',
+  path: '/tools/sos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsStatsRoute = ToolsStatsRouteImport.update({
+  id: '/tools/stats',
+  path: '/tools/stats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedSessionsIdRoute = AuthenticatedSessionsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AuthenticatedSessionsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/auth': typeof AuthRoute
+  '/clock-history': typeof ClockHistoryRoute
+  '/clock-in': typeof ClockInRoute
+  '/home': typeof HomeRoute
+  '/map': typeof MapRoute
+  '/mine': typeof MineRoute
+  '/profile': typeof ProfileRoute
+  '/report': typeof ReportRoute
+  '/security': typeof SecurityRoute
+  '/sound-alert': typeof SoundAlertRoute
+  '/track-me': typeof TrackMeRoute
+  '/account': typeof AuthenticatedAccountRoute
+  '/activity': typeof AuthenticatedActivityRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/privacy': typeof AuthenticatedPrivacyRoute
+  '/sessions': typeof AuthenticatedSessionsRouteWithChildren
+  '/tools/community': typeof ToolsCommunityRoute
+  '/tools/evidence': typeof ToolsEvidenceRoute
+  '/tools/patrol': typeof ToolsPatrolRoute
+  '/tools/safe-zones': typeof ToolsSafeZonesRoute
+  '/tools/sos': typeof ToolsSosRoute
+  '/tools/stats': typeof ToolsStatsRoute
+  '/sessions/$id': typeof AuthenticatedSessionsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/auth': typeof AuthRoute
+  '/clock-history': typeof ClockHistoryRoute
+  '/clock-in': typeof ClockInRoute
+  '/home': typeof HomeRoute
+  '/map': typeof MapRoute
+  '/mine': typeof MineRoute
+  '/profile': typeof ProfileRoute
+  '/report': typeof ReportRoute
+  '/security': typeof SecurityRoute
+  '/sound-alert': typeof SoundAlertRoute
+  '/track-me': typeof TrackMeRoute
+  '/account': typeof AuthenticatedAccountRoute
+  '/activity': typeof AuthenticatedActivityRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/privacy': typeof AuthenticatedPrivacyRoute
+  '/sessions': typeof AuthenticatedSessionsRouteWithChildren
+  '/tools/community': typeof ToolsCommunityRoute
+  '/tools/evidence': typeof ToolsEvidenceRoute
+  '/tools/patrol': typeof ToolsPatrolRoute
+  '/tools/safe-zones': typeof ToolsSafeZonesRoute
+  '/tools/sos': typeof ToolsSosRoute
+  '/tools/stats': typeof ToolsStatsRoute
+  '/sessions/$id': typeof AuthenticatedSessionsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/alerts': typeof AlertsRoute
+  '/auth': typeof AuthRoute
+  '/clock-history': typeof ClockHistoryRoute
+  '/clock-in': typeof ClockInRoute
+  '/home': typeof HomeRoute
+  '/map': typeof MapRoute
+  '/mine': typeof MineRoute
+  '/profile': typeof ProfileRoute
+  '/report': typeof ReportRoute
+  '/security': typeof SecurityRoute
+  '/sound-alert': typeof SoundAlertRoute
+  '/track-me': typeof TrackMeRoute
+  '/_authenticated/account': typeof AuthenticatedAccountRoute
+  '/_authenticated/activity': typeof AuthenticatedActivityRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/privacy': typeof AuthenticatedPrivacyRoute
+  '/_authenticated/sessions': typeof AuthenticatedSessionsRouteWithChildren
+  '/tools/community': typeof ToolsCommunityRoute
+  '/tools/evidence': typeof ToolsEvidenceRoute
+  '/tools/patrol': typeof ToolsPatrolRoute
+  '/tools/safe-zones': typeof ToolsSafeZonesRoute
+  '/tools/sos': typeof ToolsSosRoute
+  '/tools/stats': typeof ToolsStatsRoute
+  '/_authenticated/sessions/$id': typeof AuthenticatedSessionsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/alerts'
+    | '/auth'
+    | '/clock-history'
+    | '/clock-in'
+    | '/home'
+    | '/map'
+    | '/mine'
+    | '/profile'
+    | '/report'
+    | '/security'
+    | '/sound-alert'
+    | '/track-me'
+    | '/account'
+    | '/activity'
+    | '/admin'
+    | '/privacy'
+    | '/sessions'
+    | '/tools/community'
+    | '/tools/evidence'
+    | '/tools/patrol'
+    | '/tools/safe-zones'
+    | '/tools/sos'
+    | '/tools/stats'
+    | '/sessions/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/alerts'
+    | '/auth'
+    | '/clock-history'
+    | '/clock-in'
+    | '/home'
+    | '/map'
+    | '/mine'
+    | '/profile'
+    | '/report'
+    | '/security'
+    | '/sound-alert'
+    | '/track-me'
+    | '/account'
+    | '/activity'
+    | '/admin'
+    | '/privacy'
+    | '/sessions'
+    | '/tools/community'
+    | '/tools/evidence'
+    | '/tools/patrol'
+    | '/tools/safe-zones'
+    | '/tools/sos'
+    | '/tools/stats'
+    | '/sessions/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/alerts'
+    | '/auth'
+    | '/clock-history'
+    | '/clock-in'
+    | '/home'
+    | '/map'
+    | '/mine'
+    | '/profile'
+    | '/report'
+    | '/security'
+    | '/sound-alert'
+    | '/track-me'
+    | '/_authenticated/account'
+    | '/_authenticated/activity'
+    | '/_authenticated/admin'
+    | '/_authenticated/privacy'
+    | '/_authenticated/sessions'
+    | '/tools/community'
+    | '/tools/evidence'
+    | '/tools/patrol'
+    | '/tools/safe-zones'
+    | '/tools/sos'
+    | '/tools/stats'
+    | '/_authenticated/sessions/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AlertsRoute: typeof AlertsRoute
+  AuthRoute: typeof AuthRoute
+  ClockHistoryRoute: typeof ClockHistoryRoute
+  ClockInRoute: typeof ClockInRoute
+  HomeRoute: typeof HomeRoute
+  MapRoute: typeof MapRoute
+  MineRoute: typeof MineRoute
+  ProfileRoute: typeof ProfileRoute
+  ReportRoute: typeof ReportRoute
+  SecurityRoute: typeof SecurityRoute
+  SoundAlertRoute: typeof SoundAlertRoute
+  TrackMeRoute: typeof TrackMeRoute
+  ToolsCommunityRoute: typeof ToolsCommunityRoute
+  ToolsEvidenceRoute: typeof ToolsEvidenceRoute
+  ToolsPatrolRoute: typeof ToolsPatrolRoute
+  ToolsSafeZonesRoute: typeof ToolsSafeZonesRoute
+  ToolsSosRoute: typeof ToolsSosRoute
+  ToolsStatsRoute: typeof ToolsStatsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +366,237 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alerts': {
+      id: '/alerts'
+      path: '/alerts'
+      fullPath: '/alerts'
+      preLoaderRoute: typeof AlertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clock-history': {
+      id: '/clock-history'
+      path: '/clock-history'
+      fullPath: '/clock-history'
+      preLoaderRoute: typeof ClockHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clock-in': {
+      id: '/clock-in'
+      path: '/clock-in'
+      fullPath: '/clock-in'
+      preLoaderRoute: typeof ClockInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/map': {
+      id: '/map'
+      path: '/map'
+      fullPath: '/map'
+      preLoaderRoute: typeof MapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mine': {
+      id: '/mine'
+      path: '/mine'
+      fullPath: '/mine'
+      preLoaderRoute: typeof MineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/report': {
+      id: '/report'
+      path: '/report'
+      fullPath: '/report'
+      preLoaderRoute: typeof ReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/security': {
+      id: '/security'
+      path: '/security'
+      fullPath: '/security'
+      preLoaderRoute: typeof SecurityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sound-alert': {
+      id: '/sound-alert'
+      path: '/sound-alert'
+      fullPath: '/sound-alert'
+      preLoaderRoute: typeof SoundAlertRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/track-me': {
+      id: '/track-me'
+      path: '/track-me'
+      fullPath: '/track-me'
+      preLoaderRoute: typeof TrackMeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/account': {
+      id: '/_authenticated/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AuthenticatedAccountRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/activity': {
+      id: '/_authenticated/activity'
+      path: '/activity'
+      fullPath: '/activity'
+      preLoaderRoute: typeof AuthenticatedActivityRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/privacy': {
+      id: '/_authenticated/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof AuthenticatedPrivacyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sessions': {
+      id: '/_authenticated/sessions'
+      path: '/sessions'
+      fullPath: '/sessions'
+      preLoaderRoute: typeof AuthenticatedSessionsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/tools/community': {
+      id: '/tools/community'
+      path: '/tools/community'
+      fullPath: '/tools/community'
+      preLoaderRoute: typeof ToolsCommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/evidence': {
+      id: '/tools/evidence'
+      path: '/tools/evidence'
+      fullPath: '/tools/evidence'
+      preLoaderRoute: typeof ToolsEvidenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/patrol': {
+      id: '/tools/patrol'
+      path: '/tools/patrol'
+      fullPath: '/tools/patrol'
+      preLoaderRoute: typeof ToolsPatrolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/safe-zones': {
+      id: '/tools/safe-zones'
+      path: '/tools/safe-zones'
+      fullPath: '/tools/safe-zones'
+      preLoaderRoute: typeof ToolsSafeZonesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/sos': {
+      id: '/tools/sos'
+      path: '/tools/sos'
+      fullPath: '/tools/sos'
+      preLoaderRoute: typeof ToolsSosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/stats': {
+      id: '/tools/stats'
+      path: '/tools/stats'
+      fullPath: '/tools/stats'
+      preLoaderRoute: typeof ToolsStatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/sessions/$id': {
+      id: '/_authenticated/sessions/$id'
+      path: '/$id'
+      fullPath: '/sessions/$id'
+      preLoaderRoute: typeof AuthenticatedSessionsIdRouteImport
+      parentRoute: typeof AuthenticatedSessionsRoute
+    }
   }
 }
 
+interface AuthenticatedSessionsRouteChildren {
+  AuthenticatedSessionsIdRoute: typeof AuthenticatedSessionsIdRoute
+}
+
+const AuthenticatedSessionsRouteChildren: AuthenticatedSessionsRouteChildren = {
+  AuthenticatedSessionsIdRoute: AuthenticatedSessionsIdRoute,
+}
+
+const AuthenticatedSessionsRouteWithChildren =
+  AuthenticatedSessionsRoute._addFileChildren(
+    AuthenticatedSessionsRouteChildren,
+  )
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAccountRoute: typeof AuthenticatedAccountRoute
+  AuthenticatedActivityRoute: typeof AuthenticatedActivityRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedPrivacyRoute: typeof AuthenticatedPrivacyRoute
+  AuthenticatedSessionsRoute: typeof AuthenticatedSessionsRouteWithChildren
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAccountRoute: AuthenticatedAccountRoute,
+  AuthenticatedActivityRoute: AuthenticatedActivityRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedPrivacyRoute: AuthenticatedPrivacyRoute,
+  AuthenticatedSessionsRoute: AuthenticatedSessionsRouteWithChildren,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AlertsRoute: AlertsRoute,
+  AuthRoute: AuthRoute,
+  ClockHistoryRoute: ClockHistoryRoute,
+  ClockInRoute: ClockInRoute,
+  HomeRoute: HomeRoute,
+  MapRoute: MapRoute,
+  MineRoute: MineRoute,
+  ProfileRoute: ProfileRoute,
+  ReportRoute: ReportRoute,
+  SecurityRoute: SecurityRoute,
+  SoundAlertRoute: SoundAlertRoute,
+  TrackMeRoute: TrackMeRoute,
+  ToolsCommunityRoute: ToolsCommunityRoute,
+  ToolsEvidenceRoute: ToolsEvidenceRoute,
+  ToolsPatrolRoute: ToolsPatrolRoute,
+  ToolsSafeZonesRoute: ToolsSafeZonesRoute,
+  ToolsSosRoute: ToolsSosRoute,
+  ToolsStatsRoute: ToolsStatsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
