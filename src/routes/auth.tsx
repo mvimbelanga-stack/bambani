@@ -3,7 +3,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
-import { UnicornShield } from "@/components/wcu/UnicornShield";
+import brandIcon from "@/assets/images/app_logo_icon_1791456720432.jpg";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Mail, Phone, ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -125,7 +125,7 @@ function AuthPage() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6 py-10">
-      <UnicornShield className="mx-auto h-20 w-18" />
+      <img src={brandIcon} alt="World Crime Unicorn" className="mx-auto h-20 w-20 rounded-2xl object-cover" />
       <h1 className="mt-4 text-center font-display text-xl font-bold tracking-wide">
         {authType === "phone" ? "Mobile Verification" : mode === "in" ? "Welcome back" : "Create your account"}
       </h1>
