@@ -17,7 +17,6 @@ import {
   Users,
 } from "lucide-react";
 import { AppShell } from "@/components/wcu/AppShell";
-import { UnicornShield } from "@/components/wcu/UnicornShield";
 import { CITIES, ROLES } from "@/lib/wcu/data";
 import { useWcu } from "@/lib/wcu/store";
 import { cn } from "@/lib/utils";

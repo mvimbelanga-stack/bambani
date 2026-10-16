@@ -13,7 +13,6 @@ import {
   Users,
 } from "lucide-react";
 import { AppShell, ScreenHeader } from "@/components/wcu/AppShell";
-import { UnicornShield } from "@/components/wcu/UnicornShield";
 import { ROLES, type Role } from "@/lib/wcu/data";
 import { useWcu } from "@/lib/wcu/store";
 import { cn } from "@/lib/utils";

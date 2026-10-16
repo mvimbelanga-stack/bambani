@@ -2,7 +2,6 @@ import * as React from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ShieldCheck, ArrowRight, X } from "lucide-react";
 import splashCity from "@/assets/splash-city.jpg";
-import { UnicornShield } from "@/components/wcu/UnicornShield";
 import { ROLES, type Role } from "@/lib/wcu/data";
 import { useWcu } from "@/lib/wcu/store";
 
