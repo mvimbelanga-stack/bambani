@@ -14,16 +14,279 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      audit_logs: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string
+          details: Json
+          id: string
+          target_id: string | null
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string
+          details?: Json
+          id?: string
+          target_id?: string | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string
+          details?: Json
+          id?: string
+          target_id?: string | null
+        }
+        Relationships: []
+      }
+      consents: {
+        Row: {
+          accepted_at: string
+          id: string
+          policy_version: string
+          scope: Database["public"]["Enums"]["consent_scope"]
+          user_id: string
+          withdrawn_at: string | null
+        }
+        Insert: {
+          accepted_at?: string
+          id?: string
+          policy_version: string
+          scope: Database["public"]["Enums"]["consent_scope"]
+          user_id: string
+          withdrawn_at?: string | null
+        }
+        Update: {
+          accepted_at?: string
+          id?: string
+          policy_version?: string
+          scope?: Database["public"]["Enums"]["consent_scope"]
+          user_id?: string
+          withdrawn_at?: string | null
+        }
+        Relationships: []
+      }
+      location_sessions: {
+        Row: {
+          anonymised: boolean
+          ended_at: string | null
+          id: string
+          owner_id: string
+          planned_end_at: string
+          purpose: string
+          retention_category: string
+          scope: Database["public"]["Enums"]["consent_scope"]
+          started_at: string
+        }
+        Insert: {
+          anonymised?: boolean
+          ended_at?: string | null
+          id?: string
+          owner_id: string
+          planned_end_at: string
+          purpose: string
+          retention_category?: string
+          scope: Database["public"]["Enums"]["consent_scope"]
+          started_at?: string
+        }
+        Update: {
+          anonymised?: boolean
+          ended_at?: string | null
+          id?: string
+          owner_id?: string
+          planned_end_at?: string
+          purpose?: string
+          retention_category?: string
+          scope?: Database["public"]["Enums"]["consent_scope"]
+          started_at?: string
+        }
+        Relationships: []
+      }
+      location_updates: {
+        Row: {
+          accuracy: number | null
+          id: number
+          lat: number
+          lng: number
+          recorded_at: string
+          session_id: string
+          speed: number | null
+        }
+        Insert: {
+          accuracy?: number | null
+          id?: never
+          lat: number
+          lng: number
+          recorded_at?: string
+          session_id: string
+          speed?: number | null
+        }
+        Update: {
+          accuracy?: number | null
+          id?: never
+          lat?: number
+          lng?: number
+          recorded_at?: string
+          session_id?: string
+          speed?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "location_updates_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "location_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          email: string | null
+          id: string
+          phone: string | null
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id: string
+          phone?: string | null
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          phone?: string | null
+        }
+        Relationships: []
+      }
+      session_viewers: {
+        Row: {
+          added_at: string
+          session_id: string
+          viewer_id: string
+        }
+        Insert: {
+          added_at?: string
+          session_id: string
+          viewer_id: string
+        }
+        Update: {
+          added_at?: string
+          session_id?: string
+          viewer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "session_viewers_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "location_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          status: Database["public"]["Enums"]["role_status"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          status?: Database["public"]["Enums"]["role_status"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          status?: Database["public"]["Enums"]["role_status"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      add_session_viewer: {
+        Args: { _email: string; _sid: string }
+        Returns: boolean
+      }
+      admin_remove_role: {
+        Args: { _role: Database["public"]["Enums"]["app_role"]; _user: string }
+        Returns: undefined
+      }
+      admin_set_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _status: Database["public"]["Enums"]["role_status"]
+          _user: string
+        }
+        Returns: undefined
+      }
+      can_view_session: {
+        Args: { _sid: string; _uid: string }
+        Returns: boolean
+      }
+      delete_my_session: { Args: { _sid: string }; Returns: undefined }
+      drop_my_role: {
+        Args: { _role: Database["public"]["Enums"]["app_role"] }
+        Returns: undefined
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_session_owner: {
+        Args: { _sid: string; _uid: string }
+        Returns: boolean
+      }
+      log_location_view: { Args: { _sid: string }; Returns: undefined }
+      purge_expired_location_data: { Args: never; Returns: number }
+      request_role: {
+        Args: { _role: Database["public"]["Enums"]["app_role"] }
+        Returns: Database["public"]["Enums"]["role_status"]
+      }
+      session_is_live: { Args: { _sid: string }; Returns: boolean }
+      write_audit: {
+        Args: { _action: string; _details?: Json; _target: string }
+        Returns: undefined
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role:
+        | "civilian"
+        | "guardian"
+        | "family_member"
+        | "employee"
+        | "patroller"
+        | "dispatcher"
+        | "official"
+        | "admin"
+      consent_scope:
+        | "track_me"
+        | "suspicious_ride"
+        | "escort"
+        | "family"
+        | "company"
+        | "official_protection"
+      role_status: "approved" | "pending" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +413,26 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: [
+        "civilian",
+        "guardian",
+        "family_member",
+        "employee",
+        "patroller",
+        "dispatcher",
+        "official",
+        "admin",
+      ],
+      consent_scope: [
+        "track_me",
+        "suspicious_ride",
+        "escort",
+        "family",
+        "company",
+        "official_protection",
+      ],
+      role_status: ["approved", "pending", "rejected"],
+    },
   },
 } as const
