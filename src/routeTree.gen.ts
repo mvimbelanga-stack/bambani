@@ -15,6 +15,7 @@ import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ClockHistoryRouteImport } from './routes/clock-history'
 import { Route as ClockInRouteImport } from './routes/clock-in'
+import { Route as ControlRoomRouteImport } from './routes/control-room'
 import { Route as EscortRouteImport } from './routes/escort'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as MapRouteImport } from './routes/map'
@@ -67,6 +68,11 @@ const ClockHistoryRoute = ClockHistoryRouteImport.update({
 const ClockInRoute = ClockInRouteImport.update({
   id: '/clock-in',
   path: '/clock-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ControlRoomRoute = ControlRoomRouteImport.update({
+  id: '/control-room',
+  path: '/control-room',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EscortRoute = EscortRouteImport.update({
@@ -196,6 +202,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/clock-history': typeof ClockHistoryRoute
   '/clock-in': typeof ClockInRoute
+  '/control-room': typeof ControlRoomRoute
   '/escort': typeof EscortRoute
   '/home': typeof HomeRoute
   '/map': typeof MapRoute
@@ -227,6 +234,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/clock-history': typeof ClockHistoryRoute
   '/clock-in': typeof ClockInRoute
+  '/control-room': typeof ControlRoomRoute
   '/escort': typeof EscortRoute
   '/home': typeof HomeRoute
   '/map': typeof MapRoute
@@ -260,6 +268,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/clock-history': typeof ClockHistoryRoute
   '/clock-in': typeof ClockInRoute
+  '/control-room': typeof ControlRoomRoute
   '/escort': typeof EscortRoute
   '/home': typeof HomeRoute
   '/map': typeof MapRoute
@@ -293,6 +302,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/clock-history'
     | '/clock-in'
+    | '/control-room'
     | '/escort'
     | '/home'
     | '/map'
@@ -324,6 +334,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/clock-history'
     | '/clock-in'
+    | '/control-room'
     | '/escort'
     | '/home'
     | '/map'
@@ -356,6 +367,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/clock-history'
     | '/clock-in'
+    | '/control-room'
     | '/escort'
     | '/home'
     | '/map'
@@ -389,6 +401,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ClockHistoryRoute: typeof ClockHistoryRoute
   ClockInRoute: typeof ClockInRoute
+  ControlRoomRoute: typeof ControlRoomRoute
   EscortRoute: typeof EscortRoute
   HomeRoute: typeof HomeRoute
   MapRoute: typeof MapRoute
@@ -451,6 +464,13 @@ declare module '@tanstack/react-router' {
       path: '/clock-in'
       fullPath: '/clock-in'
       preLoaderRoute: typeof ClockInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/control-room': {
+      id: '/control-room'
+      path: '/control-room'
+      fullPath: '/control-room'
+      preLoaderRoute: typeof ControlRoomRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/escort': {
@@ -663,6 +683,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ClockHistoryRoute: ClockHistoryRoute,
   ClockInRoute: ClockInRoute,
+  ControlRoomRoute: ControlRoomRoute,
   EscortRoute: EscortRoute,
   HomeRoute: HomeRoute,
   MapRoute: MapRoute,
