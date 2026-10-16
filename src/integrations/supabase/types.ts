@@ -68,6 +68,116 @@ export type Database = {
         }
         Relationships: []
       }
+      guard_locations: {
+        Row: {
+          accuracy: number | null
+          battery_level: number | null
+          created_at: string
+          device_timestamp: string
+          guard_id: string
+          heading: number | null
+          id: number
+          latitude: number
+          longitude: number
+          shift_id: string
+          signal_strength: string
+          speed: number | null
+        }
+        Insert: {
+          accuracy?: number | null
+          battery_level?: number | null
+          created_at?: string
+          device_timestamp: string
+          guard_id: string
+          heading?: number | null
+          id?: number
+          latitude: number
+          longitude: number
+          shift_id: string
+          signal_strength?: string
+          speed?: number | null
+        }
+        Update: {
+          accuracy?: number | null
+          battery_level?: number | null
+          created_at?: string
+          device_timestamp?: string
+          guard_id?: string
+          heading?: number | null
+          id?: number
+          latitude?: number
+          longitude?: number
+          shift_id?: string
+          signal_strength?: string
+          speed?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "guard_locations_shift_id_fkey"
+            columns: ["shift_id"]
+            isOneToOne: false
+            referencedRelation: "guard_shifts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      guard_shifts: {
+        Row: {
+          battery_level: number | null
+          created_at: string
+          ended_at: string | null
+          guard_id: string
+          guard_name: string
+          id: string
+          last_seen_at: string | null
+          movement_status: string
+          signal_strength: string
+          started_at: string | null
+          status: string
+          updated_at: string
+          zone_center_lat: number
+          zone_center_lng: number
+          zone_name: string
+          zone_radius_m: number
+        }
+        Insert: {
+          battery_level?: number | null
+          created_at?: string
+          ended_at?: string | null
+          guard_id: string
+          guard_name?: string
+          id?: string
+          last_seen_at?: string | null
+          movement_status?: string
+          signal_strength?: string
+          started_at?: string | null
+          status?: string
+          updated_at?: string
+          zone_center_lat?: number
+          zone_center_lng?: number
+          zone_name?: string
+          zone_radius_m?: number
+        }
+        Update: {
+          battery_level?: number | null
+          created_at?: string
+          ended_at?: string | null
+          guard_id?: string
+          guard_name?: string
+          id?: string
+          last_seen_at?: string | null
+          movement_status?: string
+          signal_strength?: string
+          started_at?: string | null
+          status?: string
+          updated_at?: string
+          zone_center_lat?: number
+          zone_center_lng?: number
+          zone_name?: string
+          zone_radius_m?: number
+        }
+        Relationships: []
+      }
       location_sessions: {
         Row: {
           anonymised: boolean
