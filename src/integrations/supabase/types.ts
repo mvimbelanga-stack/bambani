@@ -275,6 +275,7 @@ export type Database = {
         | "dispatcher"
         | "official"
         | "admin"
+        | "security_company"
       consent_scope:
         | "track_me"
         | "suspicious_ride"
@@ -419,6 +420,7 @@ export const Constants = {
         "dispatcher",
         "official",
         "admin",
+        "security_company",
       ],
       consent_scope: [
         "track_me",
