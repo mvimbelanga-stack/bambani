@@ -15,11 +15,15 @@ import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ClockHistoryRouteImport } from './routes/clock-history'
 import { Route as ClockInRouteImport } from './routes/clock-in'
+import { Route as EscortRouteImport } from './routes/escort'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as MapRouteImport } from './routes/map'
+import { Route as MeshRouteImport } from './routes/mesh'
 import { Route as MineRouteImport } from './routes/mine'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ReportRouteImport } from './routes/report'
+import { Route as SafeModeRouteImport } from './routes/safe-mode'
+import { Route as SafeRouteRouteImport } from './routes/safe-route'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as SoundAlertRouteImport } from './routes/sound-alert'
 import { Route as TrackMeRouteImport } from './routes/track-me'
@@ -65,6 +69,11 @@ const ClockInRoute = ClockInRouteImport.update({
   path: '/clock-in',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EscortRoute = EscortRouteImport.update({
+  id: '/escort',
+  path: '/escort',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HomeRoute = HomeRouteImport.update({
   id: '/home',
   path: '/home',
@@ -73,6 +82,11 @@ const HomeRoute = HomeRouteImport.update({
 const MapRoute = MapRouteImport.update({
   id: '/map',
   path: '/map',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeshRoute = MeshRouteImport.update({
+  id: '/mesh',
+  path: '/mesh',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MineRoute = MineRouteImport.update({
@@ -88,6 +102,16 @@ const ProfileRoute = ProfileRouteImport.update({
 const ReportRoute = ReportRouteImport.update({
   id: '/report',
   path: '/report',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SafeModeRoute = SafeModeRouteImport.update({
+  id: '/safe-mode',
+  path: '/safe-mode',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SafeRouteRoute = SafeRouteRouteImport.update({
+  id: '/safe-route',
+  path: '/safe-route',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SecurityRoute = SecurityRouteImport.update({
@@ -172,11 +196,15 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/clock-history': typeof ClockHistoryRoute
   '/clock-in': typeof ClockInRoute
+  '/escort': typeof EscortRoute
   '/home': typeof HomeRoute
   '/map': typeof MapRoute
+  '/mesh': typeof MeshRoute
   '/mine': typeof MineRoute
   '/profile': typeof ProfileRoute
   '/report': typeof ReportRoute
+  '/safe-mode': typeof SafeModeRoute
+  '/safe-route': typeof SafeRouteRoute
   '/security': typeof SecurityRoute
   '/sound-alert': typeof SoundAlertRoute
   '/track-me': typeof TrackMeRoute
@@ -199,11 +227,15 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/clock-history': typeof ClockHistoryRoute
   '/clock-in': typeof ClockInRoute
+  '/escort': typeof EscortRoute
   '/home': typeof HomeRoute
   '/map': typeof MapRoute
+  '/mesh': typeof MeshRoute
   '/mine': typeof MineRoute
   '/profile': typeof ProfileRoute
   '/report': typeof ReportRoute
+  '/safe-mode': typeof SafeModeRoute
+  '/safe-route': typeof SafeRouteRoute
   '/security': typeof SecurityRoute
   '/sound-alert': typeof SoundAlertRoute
   '/track-me': typeof TrackMeRoute
@@ -228,11 +260,15 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/clock-history': typeof ClockHistoryRoute
   '/clock-in': typeof ClockInRoute
+  '/escort': typeof EscortRoute
   '/home': typeof HomeRoute
   '/map': typeof MapRoute
+  '/mesh': typeof MeshRoute
   '/mine': typeof MineRoute
   '/profile': typeof ProfileRoute
   '/report': typeof ReportRoute
+  '/safe-mode': typeof SafeModeRoute
+  '/safe-route': typeof SafeRouteRoute
   '/security': typeof SecurityRoute
   '/sound-alert': typeof SoundAlertRoute
   '/track-me': typeof TrackMeRoute
@@ -257,11 +293,15 @@ export interface FileRouteTypes {
     | '/auth'
     | '/clock-history'
     | '/clock-in'
+    | '/escort'
     | '/home'
     | '/map'
+    | '/mesh'
     | '/mine'
     | '/profile'
     | '/report'
+    | '/safe-mode'
+    | '/safe-route'
     | '/security'
     | '/sound-alert'
     | '/track-me'
@@ -284,11 +324,15 @@ export interface FileRouteTypes {
     | '/auth'
     | '/clock-history'
     | '/clock-in'
+    | '/escort'
     | '/home'
     | '/map'
+    | '/mesh'
     | '/mine'
     | '/profile'
     | '/report'
+    | '/safe-mode'
+    | '/safe-route'
     | '/security'
     | '/sound-alert'
     | '/track-me'
@@ -312,11 +356,15 @@ export interface FileRouteTypes {
     | '/auth'
     | '/clock-history'
     | '/clock-in'
+    | '/escort'
     | '/home'
     | '/map'
+    | '/mesh'
     | '/mine'
     | '/profile'
     | '/report'
+    | '/safe-mode'
+    | '/safe-route'
     | '/security'
     | '/sound-alert'
     | '/track-me'
@@ -341,11 +389,15 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ClockHistoryRoute: typeof ClockHistoryRoute
   ClockInRoute: typeof ClockInRoute
+  EscortRoute: typeof EscortRoute
   HomeRoute: typeof HomeRoute
   MapRoute: typeof MapRoute
+  MeshRoute: typeof MeshRoute
   MineRoute: typeof MineRoute
   ProfileRoute: typeof ProfileRoute
   ReportRoute: typeof ReportRoute
+  SafeModeRoute: typeof SafeModeRoute
+  SafeRouteRoute: typeof SafeRouteRoute
   SecurityRoute: typeof SecurityRoute
   SoundAlertRoute: typeof SoundAlertRoute
   TrackMeRoute: typeof TrackMeRoute
@@ -401,6 +453,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClockInRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/escort': {
+      id: '/escort'
+      path: '/escort'
+      fullPath: '/escort'
+      preLoaderRoute: typeof EscortRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/home': {
       id: '/home'
       path: '/home'
@@ -413,6 +472,13 @@ declare module '@tanstack/react-router' {
       path: '/map'
       fullPath: '/map'
       preLoaderRoute: typeof MapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mesh': {
+      id: '/mesh'
+      path: '/mesh'
+      fullPath: '/mesh'
+      preLoaderRoute: typeof MeshRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mine': {
@@ -434,6 +500,20 @@ declare module '@tanstack/react-router' {
       path: '/report'
       fullPath: '/report'
       preLoaderRoute: typeof ReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/safe-mode': {
+      id: '/safe-mode'
+      path: '/safe-mode'
+      fullPath: '/safe-mode'
+      preLoaderRoute: typeof SafeModeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/safe-route': {
+      id: '/safe-route'
+      path: '/safe-route'
+      fullPath: '/safe-route'
+      preLoaderRoute: typeof SafeRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/security': {
@@ -583,11 +663,15 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ClockHistoryRoute: ClockHistoryRoute,
   ClockInRoute: ClockInRoute,
+  EscortRoute: EscortRoute,
   HomeRoute: HomeRoute,
   MapRoute: MapRoute,
+  MeshRoute: MeshRoute,
   MineRoute: MineRoute,
   ProfileRoute: ProfileRoute,
   ReportRoute: ReportRoute,
+  SafeModeRoute: SafeModeRoute,
+  SafeRouteRoute: SafeRouteRoute,
   SecurityRoute: SecurityRoute,
   SoundAlertRoute: SoundAlertRoute,
   TrackMeRoute: TrackMeRoute,
