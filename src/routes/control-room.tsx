@@ -2,6 +2,7 @@ import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Navigation, ShieldCheck, Radar, ScanFace } from "lucide-react";
 import { AppShell, ScreenHeader } from "@/components/wcu/AppShell";
+import { CrisisBroadcastPanel } from "@/components/control-room/CrisisBroadcastPanel";
 import { MAP_PINS } from "@/lib/wcu/data";
 import { MAX_GPS_ACCURACY_M, MIN_LIVENESS, loadClockIns } from "@/lib/clockin/events";
 import { cn } from "@/lib/utils";
@@ -88,6 +89,9 @@ function ControlRoom() {
             ))}
           </ul>
         </Panel>
+        <div className="xl:col-span-2">
+          <CrisisBroadcastPanel />
+        </div>
       </div>
       <p className="mt-4 text-xs text-muted-foreground">Feeds are simulated until a real control room is connected.</p>
     </AppShell>
