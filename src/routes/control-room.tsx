@@ -2,6 +2,7 @@ import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Navigation, ShieldCheck, Radar, ScanFace } from "lucide-react";
 import { AppShell, ScreenHeader } from "@/components/wcu/AppShell";
+import { CrisisBroadcastPanel } from "@/components/control-room/CrisisBroadcastPanel";
 import { MAP_PINS } from "@/lib/wcu/data";
 import { MAX_GPS_ACCURACY_M, MIN_LIVENESS, loadClockIns } from "@/lib/clockin/events";
 import { cn } from "@/lib/utils";
