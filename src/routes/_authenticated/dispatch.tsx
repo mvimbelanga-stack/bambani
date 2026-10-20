@@ -147,7 +147,7 @@ function DispatchTerminal() {
       setRefused(error.message);
       return;
     }
-    setResult((data as DispatchResult) ?? null);
+    setResult((data as unknown as DispatchResult) ?? null);
   };
 
   return (
