@@ -31,6 +31,7 @@ import { Route as TrackMeRouteImport } from './routes/track-me'
 import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
 import { Route as AuthenticatedActivityRouteImport } from './routes/_authenticated/activity'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedDispatchRouteImport } from './routes/_authenticated/dispatch'
 import { Route as AuthenticatedPrivacyRouteImport } from './routes/_authenticated/privacy'
 import { Route as AuthenticatedSessionsRouteImport } from './routes/_authenticated/sessions'
 import { Route as ToolsCommunityRouteImport } from './routes/tools.community'
@@ -150,6 +151,11 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedDispatchRoute = AuthenticatedDispatchRouteImport.update({
+  id: '/dispatch',
+  path: '/dispatch',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPrivacyRoute = AuthenticatedPrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -218,6 +224,7 @@ export interface FileRoutesByFullPath {
   '/account': typeof AuthenticatedAccountRoute
   '/activity': typeof AuthenticatedActivityRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/dispatch': typeof AuthenticatedDispatchRoute
   '/privacy': typeof AuthenticatedPrivacyRoute
   '/sessions': typeof AuthenticatedSessionsRouteWithChildren
   '/tools/community': typeof ToolsCommunityRoute
@@ -250,6 +257,7 @@ export interface FileRoutesByTo {
   '/account': typeof AuthenticatedAccountRoute
   '/activity': typeof AuthenticatedActivityRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/dispatch': typeof AuthenticatedDispatchRoute
   '/privacy': typeof AuthenticatedPrivacyRoute
   '/sessions': typeof AuthenticatedSessionsRouteWithChildren
   '/tools/community': typeof ToolsCommunityRoute
@@ -284,6 +292,7 @@ export interface FileRoutesById {
   '/_authenticated/account': typeof AuthenticatedAccountRoute
   '/_authenticated/activity': typeof AuthenticatedActivityRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/dispatch': typeof AuthenticatedDispatchRoute
   '/_authenticated/privacy': typeof AuthenticatedPrivacyRoute
   '/_authenticated/sessions': typeof AuthenticatedSessionsRouteWithChildren
   '/tools/community': typeof ToolsCommunityRoute
@@ -318,6 +327,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/activity'
     | '/admin'
+    | '/dispatch'
     | '/privacy'
     | '/sessions'
     | '/tools/community'
@@ -350,6 +360,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/activity'
     | '/admin'
+    | '/dispatch'
     | '/privacy'
     | '/sessions'
     | '/tools/community'
@@ -383,6 +394,7 @@ export interface FileRouteTypes {
     | '/_authenticated/account'
     | '/_authenticated/activity'
     | '/_authenticated/admin'
+    | '/_authenticated/dispatch'
     | '/_authenticated/privacy'
     | '/_authenticated/sessions'
     | '/tools/community'
@@ -578,6 +590,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/dispatch': {
+      id: '/_authenticated/dispatch'
+      path: '/dispatch'
+      fullPath: '/dispatch'
+      preLoaderRoute: typeof AuthenticatedDispatchRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/privacy': {
       id: '/_authenticated/privacy'
       path: '/privacy'
@@ -661,6 +680,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAccountRoute: typeof AuthenticatedAccountRoute
   AuthenticatedActivityRoute: typeof AuthenticatedActivityRoute
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedDispatchRoute: typeof AuthenticatedDispatchRoute
   AuthenticatedPrivacyRoute: typeof AuthenticatedPrivacyRoute
   AuthenticatedSessionsRoute: typeof AuthenticatedSessionsRouteWithChildren
 }
@@ -669,6 +689,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAccountRoute: AuthenticatedAccountRoute,
   AuthenticatedActivityRoute: AuthenticatedActivityRoute,
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedDispatchRoute: AuthenticatedDispatchRoute,
   AuthenticatedPrivacyRoute: AuthenticatedPrivacyRoute,
   AuthenticatedSessionsRoute: AuthenticatedSessionsRouteWithChildren,
 }
