@@ -352,6 +352,7 @@ export type Database = {
         Returns: boolean
       }
       delete_my_session: { Args: { _sid: string }; Returns: undefined }
+      dispatch_locate: { Args: { _identifier: string }; Returns: Json }
       drop_my_role: {
         Args: { _role: Database["public"]["Enums"]["app_role"] }
         Returns: undefined

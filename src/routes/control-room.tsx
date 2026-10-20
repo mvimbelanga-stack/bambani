@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Navigation, ShieldCheck, Radar, ScanFace } from "lucide-react";
+import { Crosshair, Navigation, ShieldCheck, Radar, ScanFace } from "lucide-react";
 import { AppShell, ScreenHeader } from "@/components/wcu/AppShell";
 import { CrisisBroadcastPanel } from "@/components/control-room/CrisisBroadcastPanel";
 import { MAP_PINS } from "@/lib/wcu/data";
@@ -89,6 +89,15 @@ function ControlRoom() {
             ))}
           </ul>
         </Panel>
+
+        <Panel title="Fleet Directory" badge="Consent checked" tone="text-electric" icon={Crosshair} to="/dispatch">
+          <p className="text-xs text-muted-foreground">
+            Look up a registered device by email or phone. A position only appears when that person shares with you,
+            or when they are on a shift you cover.
+          </p>
+          <p className="mt-1 text-xs text-safe">Every search is logged.</p>
+        </Panel>
+
         <div className="xl:col-span-2">
           <CrisisBroadcastPanel />
         </div>
