@@ -8,3 +8,4 @@
 - [x] Evidence Vault items open (photo viewer, audio player)
 - [x] Add a home-screen MINE entry and test-ready eight-solution mine safety hub
 - [x] Security Company guard tracking (device + control room + test route)
+- [x] Dispatch Terminal: device hardware matrix + consent-checked fleet directory
