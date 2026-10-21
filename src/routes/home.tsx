@@ -44,6 +44,7 @@ export const Route = createFileRoute("/home")({
 const ACTIONS = [
   { to: "/control-room", label: "Control Room", icon: BarChart3, tone: "electric", roles: ["patroller", "police", "security"] },
   { to: "/dispatch", label: "Dispatch Terminal", icon: Crosshair, tone: "violet", roles: ["police", "security"] },
+  { to: "/incidents", label: "Sealed Incidents", icon: Bell, tone: "alert", roles: ["citizen", "patroller", "police", "security"] },
   { to: "/safe-mode", label: "Safe Mode", icon: ShieldCheck, tone: "neon", roles: ["citizen", "patroller", "police", "security"] },
   { to: "/mesh", label: "Offline SOS", icon: Radar, tone: "safe", roles: ["citizen", "patroller", "police", "security"] },
   { to: "/safe-route", label: "Guardian Route", icon: Navigation, tone: "safe", roles: ["citizen", "patroller", "police", "security"] },
