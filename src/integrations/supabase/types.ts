@@ -68,6 +68,42 @@ export type Database = {
         }
         Relationships: []
       }
+      evidence_vault: {
+        Row: {
+          description: string
+          hardware_fingerprint: string
+          id: string
+          is_locked_for_court: boolean
+          latitude: number
+          longitude: number
+          reporter_id: string
+          sealed_at: string
+          title: string
+        }
+        Insert: {
+          description: string
+          hardware_fingerprint: string
+          id?: string
+          is_locked_for_court?: boolean
+          latitude: number
+          longitude: number
+          reporter_id?: string
+          sealed_at?: string
+          title: string
+        }
+        Update: {
+          description?: string
+          hardware_fingerprint?: string
+          id?: string
+          is_locked_for_court?: boolean
+          latitude?: number
+          longitude?: number
+          reporter_id?: string
+          sealed_at?: string
+          title?: string
+        }
+        Relationships: []
+      }
       guard_locations: {
         Row: {
           accuracy: number | null
