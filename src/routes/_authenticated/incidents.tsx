@@ -22,8 +22,6 @@ export const Route = createFileRoute("/_authenticated/incidents")({
 type Alert = { id: string; title: string; description: string; latitude: number; longitude: number; timestamp: string };
 type Sealed = { id: string; title: string; description: string; latitude: number; longitude: number; sealed_at: string };
 
-// Public alerts carry an approximate (~1 km) position and no reporter identity.
-const approx = (n: number) => Math.round(n * 100) / 100;
 const mapsUrl = (lat: number, lng: number) => `https://www.google.com/maps?q=${lat},${lng}`;
 
 function Incidents() {
@@ -46,13 +44,10 @@ function Incidents() {
   React.useEffect(() => {
     loadSealed();
     if ("Notification" in window && Notification.permission === "default") Notification.requestPermission();
-    const ch = supabase.channel("global-safety-alerts", { config: { broadcast: { self: true } } });
+    const ch = supabase.channel("global-safety-alerts-feed", { config: { broadcast: { self: true } } });
     ch.on("broadcast", { event: "new-crime-incident" }, ({ payload }) => {
       const a = payload as Alert;
       setAlerts((p) => [a, ...p].slice(0, 30));
-      if ("Notification" in window && Notification.permission === "granted") {
-        new Notification(`Crime alert: ${a.title}`, { body: a.description, tag: a.id });
-      }
     }).subscribe();
     channelRef.current = ch;
     return () => { supabase.removeChannel(ch); };
@@ -82,7 +77,7 @@ function Incidents() {
           type: "broadcast",
           event: "new-crime-incident",
           payload: { id: data.id, title: title.trim(), description: desc.trim(),
-            latitude: approx(coords.latitude), longitude: approx(coords.longitude), timestamp: data.sealed_at },
+            latitude: coords.latitude, longitude: coords.longitude, timestamp: data.sealed_at },
         });
         toast.success("Report sealed and alert sent to app users");
         setTitle(""); setDesc(""); setBusy(false); loadSealed();
@@ -104,7 +99,7 @@ function Incidents() {
         <button disabled={busy} className="w-full rounded-lg bg-alert py-2.5 text-sm font-bold text-alert-foreground disabled:opacity-60">
           {busy ? "Sealing…" : "Seal & broadcast alert"}
         </button>
-        <p className="text-[11px] text-muted-foreground">Sealed records can't be edited or deleted. Others see the alert with a rough location only — never your name.</p>
+        <p className="text-[11px] text-muted-foreground">Sealed records can't be edited or deleted. Everyone using the app gets the alert with the exact location — never your name.</p>
       </form>
 
       <section className="mt-4">
