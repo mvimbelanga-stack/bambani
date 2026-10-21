@@ -30,7 +30,6 @@ function Incidents() {
   const [title, setTitle] = React.useState("");
   const [desc, setDesc] = React.useState("");
   const [busy, setBusy] = React.useState(false);
-  const channelRef = React.useRef<ReturnType<typeof supabase.channel> | null>(null);
 
   const loadSealed = React.useCallback(async () => {
     const { data } = await supabase
@@ -44,13 +43,9 @@ function Incidents() {
   React.useEffect(() => {
     loadSealed();
     if ("Notification" in window && Notification.permission === "default") Notification.requestPermission();
-    const ch = supabase.channel("global-safety-alerts-feed", { config: { broadcast: { self: true } } });
-    ch.on("broadcast", { event: "new-crime-incident" }, ({ payload }) => {
-      const a = payload as Alert;
-      setAlerts((p) => [a, ...p].slice(0, 30));
-    }).subscribe();
-    channelRef.current = ch;
-    return () => { supabase.removeChannel(ch); };
+    const on = (e: Event) => setAlerts((p) => [(e as CustomEvent).detail as Alert, ...p].slice(0, 30));
+    window.addEventListener("wcu-incident", on);
+    return () => window.removeEventListener("wcu-incident", on);
   }, [loadSealed]);
 
   const submit = (e: React.FormEvent) => {
@@ -73,12 +68,8 @@ function Incidents() {
           .select("id,sealed_at")
           .single();
         if (error || !data) { toast.error("Could not seal the report. Try again."); setBusy(false); return; }
-        await channelRef.current?.send({
-          type: "broadcast",
-          event: "new-crime-incident",
-          payload: { id: data.id, title: title.trim(), description: desc.trim(),
-            latitude: coords.latitude, longitude: coords.longitude, timestamp: data.sealed_at },
-        });
+        window.dispatchEvent(new CustomEvent("wcu-incident-send", { detail: { id: data.id, title: title.trim(), description: desc.trim(),
+            latitude: coords.latitude, longitude: coords.longitude, timestamp: data.sealed_at } }));
         toast.success("Report sealed and alert sent to app users");
         setTitle(""); setDesc(""); setBusy(false); loadSealed();
       },

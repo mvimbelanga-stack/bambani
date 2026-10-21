@@ -8,9 +8,12 @@ type Alert = { id: string; title: string; description: string; latitude: number;
 export function IncidentAlertListener() {
   React.useEffect(() => {
     if ("Notification" in window && Notification.permission === "default") Notification.requestPermission();
-    const ch = supabase.channel("global-safety-alerts-feed");
+    const ch = supabase.channel("global-safety-alerts-feed", { config: { broadcast: { self: true } } });
+    const onSend = (e: Event) => { void ch.send({ type: "broadcast", event: "new-crime-incident", payload: (e as CustomEvent).detail }); };
+    window.addEventListener("wcu-incident-send", onSend);
     ch.on("broadcast", { event: "new-crime-incident" }, ({ payload }) => {
       const a = payload as Alert;
+      window.dispatchEvent(new CustomEvent("wcu-incident", { detail: a }));
       const url = `https://www.google.com/maps?q=${a.latitude},${a.longitude}`;
       toast.error(`Crime alert: ${a.title}`, {
         description: a.description,
@@ -22,7 +25,7 @@ export function IncidentAlertListener() {
         n.onclick = () => window.open(url, "_blank");
       }
     }).subscribe();
-    return () => { supabase.removeChannel(ch); };
+    return () => { window.removeEventListener("wcu-incident-send", onSend); supabase.removeChannel(ch); };
   }, []);
   return null;
 }
