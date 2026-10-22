@@ -42,9 +42,9 @@ export function InstallationControls() {
       if (subscribed) {
         pushpad("unsubscribe", () => { setSubscribed(false); setBusy(false); setMessage("Push alerts turned off for this device."); });
       } else {
-        pushpad("subscribe", () => { setSubscribed(true); setBusy(false); setMessage("Push alerts enabled for this device."); }, (error: unknown) => {
-          setBusy(false); setDenied(Notification.permission === "denied");
-          setMessage(error instanceof Error ? error.message : "Notifications were not enabled. Please try again.");
+        pushpad("subscribe", (active: boolean) => {
+          setSubscribed(active); setBusy(false); setDenied(Notification.permission === "denied");
+          setMessage(active ? "Push alerts enabled for this device." : "Notifications were not enabled. Check your browser’s site settings.");
         });
       }
     } catch (error) { setBusy(false); setMessage(error instanceof Error ? error.message : "Could not enable notifications."); }
