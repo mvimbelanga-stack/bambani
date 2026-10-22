@@ -42,7 +42,6 @@ function Incidents() {
 
   React.useEffect(() => {
     loadSealed();
-    if ("Notification" in window && Notification.permission === "default") Notification.requestPermission();
     const on = (e: Event) => setAlerts((p) => [(e as CustomEvent).detail as Alert, ...p].slice(0, 30));
     window.addEventListener("wcu-incident", on);
     return () => window.removeEventListener("wcu-incident", on);
@@ -55,10 +54,11 @@ function Incidents() {
     navigator.geolocation.getCurrentPosition(
       async ({ coords }) => {
         const { data: u } = await supabase.auth.getUser();
+        if (!u.user) { toast.error("Sign in to seal a report"); setBusy(false); return; }
         const { data, error } = await supabase
           .from("evidence_vault")
           .insert({
-            reporter_id: u.user!.id,
+            reporter_id: u.user.id,
             title: title.trim(),
             description: desc.trim(),
             latitude: coords.latitude,
