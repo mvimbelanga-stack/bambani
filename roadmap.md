@@ -9,3 +9,5 @@
 - [x] Add a home-screen MINE entry and test-ready eight-solution mine safety hub
 - [x] Security Company guard tracking (device + control room + test route)
 - [x] Dispatch Terminal: device hardware matrix + consent-checked fleet directory
+- [ ] Add Pushpad installation and notification permission controls
+- [ ] Connect Pushpad and verify delivery from sealed reports (needs provider account)
