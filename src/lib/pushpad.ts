@@ -8,7 +8,7 @@ declare global {
 }
 
 // Public project identifier only. Never place the Pushpad access token here.
-export const pushpadProjectId = import.meta.env.VITE_PUSHPAD_PROJECT_ID as string | undefined;
+export const pushpadProjectId = import.meta.env['VITE_PUSHPAD_PROJECT_ID'] as string | undefined;
 
 let sdkPromise: Promise<Pushpad> | undefined;
 export function loadPushpad(): Promise<Pushpad> {
