@@ -25,7 +25,6 @@ function playAlarm() {
 /** App-wide listener: every open copy of the app receives sealed-incident alerts. */
 export function IncidentAlertListener() {
   React.useEffect(() => {
-    if ("Notification" in window && Notification.permission === "default") Notification.requestPermission();
     const ch = supabase.channel("global-safety-alerts-feed", { config: { broadcast: { self: true } } });
     const onSend = (e: Event) => { void ch.send({ type: "broadcast", event: "new-crime-incident", payload: (e as CustomEvent).detail }); };
     window.addEventListener("wcu-incident-send", onSend);

@@ -16,6 +16,7 @@ import { AppShell, ScreenHeader } from "@/components/wcu/AppShell";
 import { ROLES, type Role } from "@/lib/wcu/data";
 import { useWcu } from "@/lib/wcu/store";
 import { cn } from "@/lib/utils";
+import { InstallationControls } from "@/components/wcu/InstallationControls";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
@@ -47,7 +48,6 @@ const TOOLS = [
 
 function ProfileScreen() {
   const { role, setRole, city, reports } = useWcu();
-  const [alertsOn, setAlertsOn] = React.useState(true);
   const [shareLocation, setShareLocation] = React.useState(true);
 
   return (
@@ -114,18 +114,13 @@ function ProfileScreen() {
       </h2>
       <div className="glass divide-y divide-border/70 overflow-hidden rounded-2xl">
         <Toggle
-          icon={Bell}
-          label="Push alerts"
-          value={alertsOn}
-          onChange={() => setAlertsOn((v) => !v)}
-        />
-        <Toggle
           icon={Globe}
           label="Share my location with patrols"
           value={shareLocation}
           onChange={() => setShareLocation((v) => !v)}
         />
       </div>
+      <InstallationControls />
     </AppShell>
   );
 }
