@@ -28,6 +28,8 @@ export const Route = createFileRoute("/profile")({
           "Switch between Citizen, Patroller, Police and Security Company modes and open patrol, evidence, stats and SOS tools.",
       },
       { property: "og:title", content: "Profile & Role Tools — World Crime Unicorn" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       {
         property: "og:description",
         content: "Role-based tools for citizens, patrollers, police and security companies.",

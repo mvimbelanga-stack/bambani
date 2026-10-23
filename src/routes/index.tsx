@@ -15,6 +15,8 @@ export const Route = createFileRoute("/")({
           "Join the global fight against crime. Report incidents, follow live crime maps and get AI threat alerts from one app.",
       },
       { property: "og:title", content: "World Crime Unicorn — One App. Safer Communities." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       {
         property: "og:description",
         content:

@@ -10,4 +10,5 @@
 - [x] Security Company guard tracking (device + control room + test route)
 - [x] Dispatch Terminal: device hardware matrix + consent-checked fleet directory
 - [x] Add Pushpad installation and notification permission controls
-- [ ] Connect Pushpad and verify delivery from sealed reports (needs provider account)
+- [x] Create Pushpad website project and connect authenticated report sending
+- [ ] Verify closed-app receipt on a subscribed device (needs published update and a real device subscription)
