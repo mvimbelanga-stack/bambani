@@ -22,6 +22,9 @@ import { useWcu } from "@/lib/wcu/store";
 import { kindFromFile, saveMedia, type Attachment } from "@/lib/wcu/media";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { useServerFn } from "@tanstack/react-start";
+import { sealReport } from "@/lib/reports.functions";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/report")({
   head: () => ({
@@ -33,6 +36,8 @@ export const Route = createFileRoute("/report")({
           "Report theft, assault, robbery and more in seconds with photo, video or voice evidence and GPS location tagging.",
       },
       { property: "og:title", content: "Report a Crime — World Crime Unicorn" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       {
         property: "og:description",
         content: "Fast, guided crime reporting with evidence attachments and location tagging.",
@@ -69,6 +74,9 @@ function ReportScreen() {
   const [locating, setLocating] = React.useState(false);
   const [gpsCoords, setGpsCoords] = React.useState<{ lat: number; lng: number } | null>(null);
   const [ref, setRef] = React.useState<string | null>(null);
+  const [sending, setSending] = React.useState(false);
+  const [delivery, setDelivery] = React.useState("");
+  const seal = useServerFn(sealReport);
 
   const addBlob = async (blob: Blob, name: string) => {
     try {
@@ -146,16 +154,19 @@ function ReportScreen() {
     );
   };
 
-  const submit = () => {
-    if (!category) return;
-    const report = addReport({
-      category,
-      description,
-      attachments,
-      location,
-      ...(gpsCoords ? { lat: gpsCoords.lat, lng: gpsCoords.lng } : {}),
-    });
-    setRef(report.ref);
+  const submit = async () => {
+    if (!category || sending) return;
+    if (!gpsCoords) { toast.error("Use your current GPS location before sending a report."); return; }
+    if (!description.trim()) { toast.error("Add incident details before sending a report."); return; }
+    setSending(true);
+    try {
+      const result = await seal({ data: { title: category, description, latitude: gpsCoords.lat, longitude: gpsCoords.lng, hardwareFingerprint: navigator.userAgent } });
+      const report = addReport({ category, description, attachments, location, lat: gpsCoords.lat, lng: gpsCoords.lng });
+      window.dispatchEvent(new CustomEvent("wcu-incident-send", { detail: result.alert }));
+      setDelivery(result.push.accepted ? `Pushpad queued alerts for ${result.push.scheduled} subscribed devices. This does not confirm device receipt.` : `Your report is saved, but push alerts failed: ${result.push.error}`);
+      setRef(report.ref);
+    } catch (error) { toast.error(error instanceof Error ? error.message : "Could not send your report."); }
+    finally { setSending(false); }
   };
 
   if (ref) {
@@ -164,9 +175,9 @@ function ReportScreen() {
         <ScreenHeader title="Report submitted" back="/home" />
         <div className="glass mt-8 flex flex-col items-center rounded-3xl p-6 text-center">
           <CheckCircle2 className="h-14 w-14 text-safe" />
-          <h2 className="mt-4 font-display text-lg font-bold">Alert sent</h2>
+          <h2 className="mt-4 font-display text-lg font-bold">Report sealed</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Nearby patrols and responders have been notified. Keep this reference for follow-up.
+            {delivery} Keep this reference for follow-up.
           </p>
           <p className="mt-4 rounded-xl bg-surface-2 px-4 py-2 font-display text-base tracking-widest text-neon">
             {ref}
@@ -343,12 +354,12 @@ function ReportScreen() {
             Next
           </button>
         ) : (
-          <button
+          <Button variant="destructive" disabled={sending}
             onClick={submit}
-            className="glow-alert flex-[2] rounded-2xl bg-alert py-3 text-sm font-bold tracking-wide text-alert-foreground"
+            className="glow-alert h-auto flex-[2] rounded-2xl py-3 text-sm font-bold tracking-wide"
           >
-            Submit report
-          </button>
+            {sending ? "Sending…" : "Submit report"}
+          </Button>
         )}
       </div>
 
