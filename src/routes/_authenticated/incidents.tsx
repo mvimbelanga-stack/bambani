@@ -4,6 +4,9 @@ import { toast } from "sonner";
 import { Lock, MapPin, Siren } from "lucide-react";
 import { AppShell, ScreenHeader } from "@/components/wcu/AppShell";
 import { supabase } from "@/integrations/supabase/client";
+import { useServerFn } from "@tanstack/react-start";
+import { sealReport } from "@/lib/reports.functions";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated/incidents")({
   head: () => ({
@@ -30,6 +33,7 @@ function Incidents() {
   const [title, setTitle] = React.useState("");
   const [desc, setDesc] = React.useState("");
   const [busy, setBusy] = React.useState(false);
+  const seal = useServerFn(sealReport);
 
   const loadSealed = React.useCallback(async () => {
     const { data } = await supabase
@@ -53,25 +57,14 @@ function Incidents() {
     setBusy(true);
     navigator.geolocation.getCurrentPosition(
       async ({ coords }) => {
-        const { data: u } = await supabase.auth.getUser();
-        if (!u.user) { toast.error("Sign in to seal a report"); setBusy(false); return; }
-        const { data, error } = await supabase
-          .from("evidence_vault")
-          .insert({
-            reporter_id: u.user.id,
-            title: title.trim(),
-            description: desc.trim(),
-            latitude: coords.latitude,
-            longitude: coords.longitude,
-            hardware_fingerprint: navigator.userAgent,
-          })
-          .select("id,sealed_at")
-          .single();
-        if (error || !data) { toast.error("Could not seal the report. Try again."); setBusy(false); return; }
-        window.dispatchEvent(new CustomEvent("wcu-incident-send", { detail: { id: data.id, title: title.trim(), description: desc.trim(),
-            latitude: coords.latitude, longitude: coords.longitude, timestamp: data.sealed_at } }));
-        toast.success("Report sealed and alert sent to app users");
-        setTitle(""); setDesc(""); setBusy(false); loadSealed();
+        try {
+          const result = await seal({ data: { title, description: desc, latitude: coords.latitude, longitude: coords.longitude, hardwareFingerprint: navigator.userAgent } });
+          window.dispatchEvent(new CustomEvent("wcu-incident-send", { detail: result.alert }));
+          if (!result.push.accepted) toast.warning("Report sealed; push alert failed", { description: result.push.error });
+          else toast.success(`Report sealed; Pushpad queued ${result.push.scheduled} device alerts`);
+          setTitle(""); setDesc(""); void loadSealed();
+        } catch (error) { toast.error(error instanceof Error ? error.message : "Could not seal the report."); }
+        finally { setBusy(false); }
       },
       () => { toast.error("Location is needed to seal a report"); setBusy(false); },
       { enableHighAccuracy: true, timeout: 10000 },
@@ -87,10 +80,10 @@ function Incidents() {
           className="w-full rounded-lg border border-border bg-background p-2.5 text-sm" />
         <textarea value={desc} onChange={(e) => setDesc(e.target.value)} maxLength={5000} rows={3} placeholder="Details"
           className="w-full resize-none rounded-lg border border-border bg-background p-2.5 text-sm" />
-        <button disabled={busy} className="w-full rounded-lg bg-alert py-2.5 text-sm font-bold text-alert-foreground disabled:opacity-60">
+        <Button type="submit" variant="destructive" disabled={busy} className="w-full">
           {busy ? "Sealing…" : "Seal & broadcast alert"}
-        </button>
-        <p className="text-[11px] text-muted-foreground">Sealed records can't be edited or deleted. Everyone using the app gets the alert with the exact location — never your name.</p>
+        </Button>
+        <p className="text-[11px] text-muted-foreground">Sealed records can't be edited or deleted. Push alerts go to subscribed devices with the exact report location, not your account name. Delivery depends on device notification settings.</p>
       </form>
 
       <section className="mt-4">

@@ -1,3 +1,4 @@
+import { PUSHPAD_PROJECT_ID, PUSHPAD_WEBSITE } from "./pushpad-config";
 export type PushpadCommand = "init" | "subscribe" | "unsubscribe" | "status";
 type Pushpad = (command: PushpadCommand, ...args: unknown[]) => void;
 
@@ -8,11 +9,12 @@ declare global {
 }
 
 // Public project identifier only. Never place the Pushpad access token here.
-export const pushpadProjectId = import.meta.env['VITE_PUSHPAD_PROJECT_ID'] as string | undefined;
+export const pushpadProjectId = PUSHPAD_PROJECT_ID;
+export function isPushpadWebsite() { return window.location.origin === PUSHPAD_WEBSITE; }
 
 let sdkPromise: Promise<Pushpad> | undefined;
 export function loadPushpad(): Promise<Pushpad> {
-  if (!pushpadProjectId) return Promise.reject(new Error("Pushpad account setup is not complete."));
+  if (!isPushpadWebsite()) return Promise.reject(new Error("Enable notifications at bambana.lovable.app; preview subscriptions are not supported."));
   if (sdkPromise) return sdkPromise;
   sdkPromise = new Promise((resolve, reject) => {
     const script = document.createElement("script");

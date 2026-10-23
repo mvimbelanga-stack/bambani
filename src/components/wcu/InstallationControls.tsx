@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Bell, BellOff, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { loadPushpad, pushpadProjectId } from "@/lib/pushpad";
+import { isPushpadWebsite, loadPushpad } from "@/lib/pushpad";
 
 interface InstallPrompt extends Event {
   prompt(): Promise<void>;
@@ -16,9 +16,11 @@ export function InstallationControls() {
   const [denied, setDenied] = React.useState(false);
   const [busy, setBusy] = React.useState(false);
   const [message, setMessage] = React.useState("");
+  const [website, setWebsite] = React.useState(false);
 
   React.useEffect(() => {
     setInstalled(window.matchMedia("(display-mode: standalone)").matches);
+    setWebsite(isPushpadWebsite());
     setSupported("Notification" in window && "serviceWorker" in navigator && "PushManager" in window);
     setDenied("Notification" in window && Notification.permission === "denied");
     const beforeInstall = (event: Event) => { event.preventDefault(); setInstallPrompt(event as InstallPrompt); };
@@ -26,7 +28,7 @@ export function InstallationControls() {
     window.addEventListener("beforeinstallprompt", beforeInstall);
     window.addEventListener("appinstalled", afterInstall);
     // Check an existing subscription without requesting permission on page load.
-    if (pushpadProjectId && "Notification" in window && Notification.permission === "granted") {
+    if (isPushpadWebsite() && "Notification" in window && Notification.permission === "granted") {
       void loadPushpad().then((pushpad) => pushpad("status", (active: boolean) => setSubscribed(active))).catch(() => {});
     }
     return () => {
@@ -61,12 +63,12 @@ export function InstallationControls() {
           if (choice.outcome === "accepted") setInstalled(true);
           setInstallPrompt(null);
         }}><Download />{installed ? "Installed" : "Install app"}</Button>
-        <Button variant={subscribed ? "outline" : "default"} disabled={busy || !supported || denied || !pushpadProjectId} onClick={togglePush}>
+        <Button variant={subscribed ? "outline" : "default"} disabled={busy || !supported || denied || !website} onClick={togglePush}>
           {subscribed ? <BellOff /> : <Bell />}{busy ? "Connecting…" : subscribed ? "Turn off push alerts" : "Enable notifications"}
         </Button>
       </div>
       <p className="text-xs text-muted-foreground" role="status">
-        {message || (denied ? "Notifications are blocked. Allow them in your browser’s site settings." : !supported ? "For iPhone notifications, add this app to your Home Screen first." : !pushpadProjectId ? "Push notifications await the Pushpad account connection." : "Receive crime alerts with the report’s location on this device.")}
+        {message || (!website ? "Enable notifications on bambana.lovable.app, not in the preview." : denied ? "Notifications are blocked. Allow them in your browser’s site settings." : !supported ? "For iPhone notifications, add this app to your Home Screen first." : "Receive crime alerts with the report’s location on this device.")}
       </p>
     </section>
   );
