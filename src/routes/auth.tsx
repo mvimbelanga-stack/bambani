@@ -32,6 +32,7 @@ function AuthPage() {
   const [otpCode, setOtpCode] = React.useState("");
   const [busy, setBusy] = React.useState(false);
   const [sent, setSent] = React.useState(false);
+  const [resetSent, setResetSent] = React.useState(false);
 
   React.useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -111,6 +112,27 @@ function AuthPage() {
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Invalid code. Please check and try again.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const forgotPassword = async () => {
+    const cleanEmail = email.trim();
+    if (!cleanEmail) {
+      toast.error("Enter your email address first");
+      return;
+    }
+    setBusy(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(cleanEmail, {
+        redirectTo: window.location.origin + "/reset-password",
+      });
+      if (error) throw error;
+      setResetSent(true);
+      toast.success(`Password reset link sent to ${cleanEmail}`);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Could not send reset email");
     } finally {
       setBusy(false);
     }
