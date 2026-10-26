@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { ShieldCheck, ArrowRight, X } from "lucide-react";
+import { ShieldCheck, ArrowRight } from "lucide-react";
 import splashCity from "@/assets/splash-city.jpg";
 import { ROLES, type Role } from "@/lib/wcu/data";
 import { useWcu } from "@/lib/wcu/store";
@@ -31,18 +31,9 @@ function Splash() {
   const navigate = useNavigate();
   const { setRole, role } = useWcu();
   const [picking, setPicking] = React.useState(false);
-  const [signingIn, setSigningIn] = React.useState(false);
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
 
   const choose = (r: Role) => {
     setRole(r);
-    navigate({ to: "/home" });
-  };
-
-  const signIn = (e: React.FormEvent) => {
-    e.preventDefault();
-    setRole(role ?? "citizen");
     navigate({ to: "/home" });
   };
 
@@ -126,7 +117,7 @@ function Splash() {
 
           <p className="mt-5 text-xs text-muted-foreground">
             Already have an account?{" "}
-            <button onClick={() => setSigningIn(true)} className="font-semibold text-neon">
+            <button onClick={() => navigate({ to: "/auth" })} className="font-semibold text-neon">
               Sign In
             </button>
           </p>
