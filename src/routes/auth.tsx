@@ -279,7 +279,7 @@ function AuthPage() {
       )}
 
       {authType === "email" && (
-        <button onClick={() => { setMode(mode === "in" ? "up" : "in"); setSent(false); }} className="mt-4 text-center text-xs text-neon">
+        <button onClick={() => { setMode(mode === "in" ? "up" : "in"); setSent(false); setResetSent(false); }} className="mt-4 text-center text-xs text-neon">
           {mode === "in" ? "New here? Create an account" : "Already have an account? Sign in"}
         </button>
       )}
