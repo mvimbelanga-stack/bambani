@@ -124,62 +124,6 @@ function Splash() {
         </div>
       </div>
 
-      {signingIn ? (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-background/70 px-4 pb-8 backdrop-blur-sm">
-          <form
-            onSubmit={signIn}
-            className="glass w-full max-w-md animate-fade-in rounded-3xl p-5 text-left"
-          >
-            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-2">
-              <div className="min-w-0">
-                <h2 className="font-display text-base font-bold tracking-wide">Welcome back</h2>
-                <p className="text-xs text-muted-foreground">Sign in to continue the fight.</p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setSigningIn(false)}
-                className="shrink-0 text-muted-foreground"
-                aria-label="Close sign in"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-            <label htmlFor="email" className="mt-4 mb-1 block text-xs text-muted-foreground">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              className="w-full rounded-2xl border border-border bg-surface-2/60 px-3 py-3 text-sm outline-none focus:border-neon"
-            />
-            <label htmlFor="password" className="mt-3 mb-1 block text-xs text-muted-foreground">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full rounded-2xl border border-border bg-surface-2/60 px-3 py-3 text-sm outline-none focus:border-neon"
-            />
-            <button
-              type="submit"
-              className="glow-electric mt-5 w-full rounded-2xl bg-gradient-to-r from-electric to-violet py-3 font-display text-sm font-bold tracking-widest text-electric-foreground"
-            >
-              SIGN IN
-            </button>
-            <p className="mt-3 text-center text-[11px] text-muted-foreground">
-              Demo sign-in — no account is created.
-            </p>
-          </form>
-        </div>
-      ) : null}
     </div>
   );
 }
