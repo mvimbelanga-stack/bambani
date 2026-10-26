@@ -23,6 +23,7 @@ import { Route as MeshRouteImport } from './routes/mesh'
 import { Route as MineRouteImport } from './routes/mine'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ReportRouteImport } from './routes/report'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SafeModeRouteImport } from './routes/safe-mode'
 import { Route as SafeRouteRouteImport } from './routes/safe-route'
 import { Route as SecurityRouteImport } from './routes/security'
@@ -110,6 +111,11 @@ const ProfileRoute = ProfileRouteImport.update({
 const ReportRoute = ReportRouteImport.update({
   id: '/report',
   path: '/report',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SafeModeRoute = SafeModeRouteImport.update({
@@ -222,6 +228,7 @@ export interface FileRoutesByFullPath {
   '/mine': typeof MineRoute
   '/profile': typeof ProfileRoute
   '/report': typeof ReportRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/safe-mode': typeof SafeModeRoute
   '/safe-route': typeof SafeRouteRoute
   '/security': typeof SecurityRoute
@@ -256,6 +263,7 @@ export interface FileRoutesByTo {
   '/mine': typeof MineRoute
   '/profile': typeof ProfileRoute
   '/report': typeof ReportRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/safe-mode': typeof SafeModeRoute
   '/safe-route': typeof SafeRouteRoute
   '/security': typeof SecurityRoute
@@ -292,6 +300,7 @@ export interface FileRoutesById {
   '/mine': typeof MineRoute
   '/profile': typeof ProfileRoute
   '/report': typeof ReportRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/safe-mode': typeof SafeModeRoute
   '/safe-route': typeof SafeRouteRoute
   '/security': typeof SecurityRoute
@@ -328,6 +337,7 @@ export interface FileRouteTypes {
     | '/mine'
     | '/profile'
     | '/report'
+    | '/reset-password'
     | '/safe-mode'
     | '/safe-route'
     | '/security'
@@ -362,6 +372,7 @@ export interface FileRouteTypes {
     | '/mine'
     | '/profile'
     | '/report'
+    | '/reset-password'
     | '/safe-mode'
     | '/safe-route'
     | '/security'
@@ -397,6 +408,7 @@ export interface FileRouteTypes {
     | '/mine'
     | '/profile'
     | '/report'
+    | '/reset-password'
     | '/safe-mode'
     | '/safe-route'
     | '/security'
@@ -433,6 +445,7 @@ export interface RootRouteChildren {
   MineRoute: typeof MineRoute
   ProfileRoute: typeof ProfileRoute
   ReportRoute: typeof ReportRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SafeModeRoute: typeof SafeModeRoute
   SafeRouteRoute: typeof SafeRouteRoute
   SecurityRoute: typeof SecurityRoute
@@ -544,6 +557,13 @@ declare module '@tanstack/react-router' {
       path: '/report'
       fullPath: '/report'
       preLoaderRoute: typeof ReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/safe-mode': {
@@ -733,6 +753,7 @@ const rootRouteChildren: RootRouteChildren = {
   MineRoute: MineRoute,
   ProfileRoute: ProfileRoute,
   ReportRoute: ReportRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SafeModeRoute: SafeModeRoute,
   SafeRouteRoute: SafeRouteRoute,
   SecurityRoute: SecurityRoute,

@@ -252,6 +252,23 @@ function AuthPage() {
           )}
           <input className={input} type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
           <input className={input} type="password" minLength={8} placeholder="Password (8+ characters)" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          {mode === "in" && (
+            <div className="text-right">
+              <button
+                type="button"
+                onClick={forgotPassword}
+                disabled={busy}
+                className="text-xs font-semibold text-neon hover:underline disabled:opacity-60"
+              >
+                Forgot password?
+              </button>
+            </div>
+          )}
+          {resetSent && mode === "in" && (
+            <p className="rounded-xl border border-neon/30 bg-neon/10 px-3 py-2 text-xs text-foreground">
+              Reset link sent to <b>{email}</b> — open it on this device to choose a new password.
+            </p>
+          )}
           <button disabled={busy} className="glow-electric w-full rounded-2xl bg-gradient-to-r from-electric to-violet py-3 font-display text-sm font-bold tracking-widest text-electric-foreground disabled:opacity-60">
             {busy ? "PLEASE WAIT…" : mode === "in" ? "SIGN IN" : "CREATE ACCOUNT"}
           </button>
