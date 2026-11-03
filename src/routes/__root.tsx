@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { WcuProvider } from "../lib/wcu/store";
 import { Toaster } from "../components/ui/sonner";
 import { IncidentAlertListener } from "../components/wcu/IncidentAlertListener";
+import { startClockInSync } from "../lib/clockin/sync";
 
 function NotFoundComponent() {
   return (
@@ -132,6 +133,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => startClockInSync(), []);
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { Camera, CheckCircle2, Eye, History, Loader2, MapPin, MoveVertical, ScanFace } from "lucide-react";
 import { AppShell, ScreenHeader } from "@/components/wcu/AppShell";
 import { cn } from "@/lib/utils";
-import { enqueueClockIn, startClockInSync } from "@/lib/clockin/sync";
+import { enqueueClockIn } from "@/lib/clockin/sync";
 import {
   type ClockInEvent,
   getDeviceId,
