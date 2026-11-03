@@ -42,6 +42,7 @@ import { Route as ToolsPatrolRouteImport } from './routes/tools.patrol'
 import { Route as ToolsSafeZonesRouteImport } from './routes/tools.safe-zones'
 import { Route as ToolsSosRouteImport } from './routes/tools.sos'
 import { Route as ToolsStatsRouteImport } from './routes/tools.stats'
+import { Route as AuthenticatedAdminDashboardRouteImport } from './routes/_authenticated/admin_.dashboard'
 import { Route as AuthenticatedSessionsIdRouteImport } from './routes/_authenticated/sessions.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -208,6 +209,12 @@ const ToolsStatsRoute = ToolsStatsRouteImport.update({
   path: '/tools/stats',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminDashboardRoute =
+  AuthenticatedAdminDashboardRouteImport.update({
+    id: '/admin_/dashboard',
+    path: '/admin/dashboard',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedSessionsIdRoute = AuthenticatedSessionsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -247,6 +254,7 @@ export interface FileRoutesByFullPath {
   '/tools/safe-zones': typeof ToolsSafeZonesRoute
   '/tools/sos': typeof ToolsSosRoute
   '/tools/stats': typeof ToolsStatsRoute
+  '/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
   '/sessions/$id': typeof AuthenticatedSessionsIdRoute
 }
 export interface FileRoutesByTo {
@@ -282,6 +290,7 @@ export interface FileRoutesByTo {
   '/tools/safe-zones': typeof ToolsSafeZonesRoute
   '/tools/sos': typeof ToolsSosRoute
   '/tools/stats': typeof ToolsStatsRoute
+  '/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
   '/sessions/$id': typeof AuthenticatedSessionsIdRoute
 }
 export interface FileRoutesById {
@@ -319,6 +328,7 @@ export interface FileRoutesById {
   '/tools/safe-zones': typeof ToolsSafeZonesRoute
   '/tools/sos': typeof ToolsSosRoute
   '/tools/stats': typeof ToolsStatsRoute
+  '/_authenticated/admin_/dashboard': typeof AuthenticatedAdminDashboardRoute
   '/_authenticated/sessions/$id': typeof AuthenticatedSessionsIdRoute
 }
 export interface FileRouteTypes {
@@ -356,6 +366,7 @@ export interface FileRouteTypes {
     | '/tools/safe-zones'
     | '/tools/sos'
     | '/tools/stats'
+    | '/admin/dashboard'
     | '/sessions/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -391,6 +402,7 @@ export interface FileRouteTypes {
     | '/tools/safe-zones'
     | '/tools/sos'
     | '/tools/stats'
+    | '/admin/dashboard'
     | '/sessions/$id'
   id:
     | '__root__'
@@ -427,6 +439,7 @@ export interface FileRouteTypes {
     | '/tools/safe-zones'
     | '/tools/sos'
     | '/tools/stats'
+    | '/_authenticated/admin_/dashboard'
     | '/_authenticated/sessions/$id'
   fileRoutesById: FileRoutesById
 }
@@ -692,6 +705,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsStatsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin_/dashboard': {
+      id: '/_authenticated/admin_/dashboard'
+      path: '/admin/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AuthenticatedAdminDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/sessions/$id': {
       id: '/_authenticated/sessions/$id'
       path: '/$id'
@@ -723,6 +743,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIncidentsRoute: typeof AuthenticatedIncidentsRoute
   AuthenticatedPrivacyRoute: typeof AuthenticatedPrivacyRoute
   AuthenticatedSessionsRoute: typeof AuthenticatedSessionsRouteWithChildren
+  AuthenticatedAdminDashboardRoute: typeof AuthenticatedAdminDashboardRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -733,6 +754,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIncidentsRoute: AuthenticatedIncidentsRoute,
   AuthenticatedPrivacyRoute: AuthenticatedPrivacyRoute,
   AuthenticatedSessionsRoute: AuthenticatedSessionsRouteWithChildren,
+  AuthenticatedAdminDashboardRoute: AuthenticatedAdminDashboardRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

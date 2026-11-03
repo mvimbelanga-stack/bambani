@@ -1,5 +1,5 @@
 import * as React from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -68,6 +68,7 @@ function Admin() {
   return (
     <AppShell>
       <ScreenHeader title="Admin" subtitle="Roles & audit" />
+      <Link to="/admin/dashboard" className="mb-4 block rounded-xl border border-neon p-3 text-center text-sm text-neon">Open clock-in dashboard</Link>
       <h2 className="mb-2 font-display text-sm font-bold tracking-widest text-muted-foreground">PENDING REQUESTS</h2>
       {pending.length === 0 && <p className="text-xs text-muted-foreground">None.</p>}
       {pending.map((r) => (

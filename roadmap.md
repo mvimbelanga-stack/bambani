@@ -11,4 +11,6 @@
 - [x] Dispatch Terminal: device hardware matrix + consent-checked fleet directory
 - [x] Add Pushpad installation and notification permission controls
 - [x] Create Pushpad website project and connect authenticated report sending
+- [x] Clock-ins saved to backend + supervisor dashboard (map, CSV, offline queue)
+- [ ] Finish login hardening (password rules, rate limiting) — paused earlier
 - [ ] Verify closed-app receipt on a subscribed device (needs published update and a real device subscription)

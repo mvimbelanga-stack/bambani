@@ -14,3 +14,4 @@
 - Location lookups by email or phone go through the public.dispatch_locate database function, which enforces the caller's role and viewer consent; never resolve another person's position from client code.
 - Keep home-screen installation manifest-only and Pushpad messaging separate from app-shell caching; request push subscriptions only from an explicit user action.
 - Both reporting screens use the authenticated sealReport server function to persist caller-owned evidence before requesting a Pushpad broadcast; never expose an arbitrary or repeat-send endpoint, and distinguish provider acceptance from device receipt.
+- Clock-ins go through the localStorage queue in src/lib/clockin/sync.ts (unique client_id, flushed on `online`), and the database trigger decides approved/failed, so offline patrols never lose or duplicate records and clients can't self-approve.

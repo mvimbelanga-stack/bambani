@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { Camera, CheckCircle2, Eye, History, Loader2, MapPin, MoveVertical, ScanFace } from "lucide-react";
 import { AppShell, ScreenHeader } from "@/components/wcu/AppShell";
 import { cn } from "@/lib/utils";
+import { enqueueClockIn } from "@/lib/clockin/sync";
 import {
   type ClockInEvent,
   getDeviceId,
@@ -175,6 +176,17 @@ function ClockIn() {
     setResult(event);
     setBusy(false);
     toast.success("Clocked in — Shift verified & started");
+    const sync = await enqueueClockIn({
+      client_id: crypto.randomUUID(),
+      timestamp: event.timestamp,
+      latitude,
+      longitude,
+      gps_accuracy: accuracy,
+      liveness_score: score,
+      device_info: { deviceId, userAgent: navigator.userAgent.slice(0, 300), ip: event.ipAddress },
+    });
+    if (sync.pending > 0) toast.warning("Saved on this phone — will upload to the control room when you're back online and signed in.");
+    else toast.success("Clock-in sent to the control room");
   };
 
   const clockIn = () => {

@@ -41,6 +41,51 @@ export type Database = {
         }
         Relationships: []
       }
+      clock_ins: {
+        Row: {
+          client_id: string
+          created_at: string
+          device_info: Json
+          face_thumbnail_url: string | null
+          gps_accuracy: number
+          id: string
+          latitude: number
+          liveness_score: number
+          longitude: number
+          status: string
+          timestamp: string
+          user_id: string
+        }
+        Insert: {
+          client_id: string
+          created_at?: string
+          device_info?: Json
+          face_thumbnail_url?: string | null
+          gps_accuracy: number
+          id?: string
+          latitude: number
+          liveness_score: number
+          longitude: number
+          status?: string
+          timestamp?: string
+          user_id?: string
+        }
+        Update: {
+          client_id?: string
+          created_at?: string
+          device_info?: Json
+          face_thumbnail_url?: string | null
+          gps_accuracy?: number
+          id?: string
+          latitude?: number
+          liveness_score?: number
+          longitude?: number
+          status?: string
+          timestamp?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       consents: {
         Row: {
           accepted_at: string
