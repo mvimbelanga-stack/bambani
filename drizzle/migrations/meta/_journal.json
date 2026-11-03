@@ -43,6 +43,13 @@
       "when": 1792576292624,
       "tag": "0005_evidence_vault",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1793701360398,
+      "tag": "0006_clock_ins",
+      "breakpoints": true
     }
   ]
 }
