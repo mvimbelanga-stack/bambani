@@ -15,7 +15,7 @@ export const SUPERVISOR_ROLES = ["admin", "dispatcher", "security_company"] as c
 function cell(v: unknown) {
   let s = v == null ? "" : String(v);
   // Neutralise spreadsheet formula injection.
-  if (/^[=+\-@\t\r]/.test(s)) s = `'${s}`;
+  if (typeof v === "string" && /^[=+\-@\t\r]/.test(s)) s = `'${s}`;
   return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
